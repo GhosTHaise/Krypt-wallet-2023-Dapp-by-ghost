@@ -7,7 +7,7 @@ import logo from "../../images/logo.png"
 const NavbarItem = ({title,classProps}) => {
   return (
     <div className={`mx-4 cursor-pointer ${classProps}`}>
-          {title={}}
+          {title}
     </div>
   )
 }
