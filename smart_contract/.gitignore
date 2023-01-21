@@ -9,3 +9,6 @@ typechain-types
 cache
 artifacts
 
+#personnal hardhat config
+./hardhat.config.js
+

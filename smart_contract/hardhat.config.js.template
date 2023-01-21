@@ -9,9 +9,9 @@ module.exports = {
   },
   networks : {
      goerli : {
-        url : "https://eth-goerli.g.alchemy.com/v2/phH-asnZGgkpdxa6hRwPhYimQN7Vb5Vk",
+        url : "ALCHEMY_PROJECT_API_KEY",
         accounts : [
-            "a29c512c737d94f5a018128054c4cd5f26fd9a87e786903edc0c81c4dea32eb4"
+            "YOUR_API_KEY"
         ]
      }
   }
