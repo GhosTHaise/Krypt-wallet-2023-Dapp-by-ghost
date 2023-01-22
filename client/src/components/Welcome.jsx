@@ -3,6 +3,10 @@ import { SiEthereum } from "react-icons/si"
 import { BsInfoCircle } from "react-icons/bs"
 
 import {Loader} from "./"
+import { useContext } from "react"
+import { createContext } from "react"
+import { TransactionContext } from "../context/TransactionContext"
+
 
 const commonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white"
 
@@ -27,6 +31,8 @@ const connectWallet = () => {
 }
 
 const Welcome = () => {
+  const {getEthereumContract} = createContext(TransactionContext);
+
   return (
     <div className="flex w-full justify-center items-center">
         <div className="flex mf:flex-row flex-col items-start 
