@@ -11,4 +11,5 @@ artifacts
 
 #personnal hardhat config
 ./hardhat.config.js
+hardhat.config.js
 
