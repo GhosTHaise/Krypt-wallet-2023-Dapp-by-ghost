@@ -37,6 +37,7 @@ export const TransactionProvider = ({children}) => {
             setCurrentAccount(accounts);
         }catch(err){
             console.log(err);
+            throw new Error("No ethereum Object.")
         }
     }
     //
@@ -48,7 +49,8 @@ export const TransactionProvider = ({children}) => {
     <TransactionContext.Provider 
         value={
             {
-                getEthereumContract
+                getEthereumContract,
+                connectWallet
             }
         }
     >

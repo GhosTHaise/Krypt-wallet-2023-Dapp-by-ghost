@@ -26,12 +26,9 @@ const handleSubmit = () => {
 
 }
 
-const connectWallet = () => {
-
-}
 
 const Welcome = () => {
-  const {getEthereumContract} = createContext(TransactionContext);
+  const {connectWallet} = useContext(TransactionContext);
 
   return (
     <div className="flex w-full justify-center items-center">
@@ -47,7 +44,7 @@ const Welcome = () => {
                   </p>
                   <button 
                   type="button" 
-                  onClick={connectWallet}
+                  onClick={() => connectWallet()}
                   className="flex flex-row justify-center items-center my-5
                    bg-[#2952e3] p-3 rounded-full transition-[1] hover:bg-[#2546bd]"
                   >
