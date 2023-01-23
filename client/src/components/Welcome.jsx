@@ -4,7 +4,6 @@ import { BsInfoCircle } from "react-icons/bs"
 
 import {Loader} from "./"
 import { useContext } from "react"
-import { createContext } from "react"
 import { TransactionContext } from "../context/TransactionContext"
 
 
@@ -21,15 +20,19 @@ const Input = ({value,handleChange,name,...params}) => (
    text-white border-none text-light white-glassmorphism"
   />
 );
-/* My function */
-const handleSubmit = () => {
 
-}
 
 
 const Welcome = () => { 
-  const {connectWallet,CurrentAccount} = useContext(TransactionContext);
-
+  const {connectWallet,CurrentAccount,setFormData,FormData,handleChange,sendTransaction} = useContext(TransactionContext);
+  /* My function */
+  const handleSubmit = (e) => {
+    const {addressTo,amount,keyword,message} = FormData;
+    e.preventDefault();
+    if(!addressTo || !amount || !keyword || !message) return;
+    //new transaction
+    sendTransaction()
+  }
   return (
     <div className="flex w-full justify-center items-center">
         <div className="flex mf:flex-row flex-col items-start 
@@ -100,10 +103,10 @@ const Welcome = () => {
 
               {/* My form */}
               <div className="p-5 sm:w-96  w-full flex flex-col justify-start items-center blue-glassmorphism">
-                    <Input placeholder="Address To" name="addressTo" type="text" handleChange={()=>{}} />
-                    <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={()=>{}} />
-                    <Input placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={()=>{}} />
-                    <Input placeholder="Enter Message" name="message" type="text" handleChange={()=>{}} />
+                    <Input placeholder="Address To" name="addressTo" type="text" handleChange={handleChange} />
+                    <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange} />
+                    <Input placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={handleChange} />
+                    <Input placeholder="Enter Message" name="message" type="text" handleChange={handleChange} />
 
                     <div className="h-[1px] w-full bg-gray-400 my-2" />
                     {

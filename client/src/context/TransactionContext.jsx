@@ -25,6 +25,22 @@ const avertissement = () => {
 
 export const TransactionProvider = ({children}) => {
     const [CurrentAccount, setCurrentAccount] = useState("");
+    //get imput from data
+    const [FormData,setFormData] = useState(
+        {
+            addressTo : "",
+            amount : "",
+            keyword : "",
+            message : ""
+        });
+    
+    const handleChange = (e,name) => {
+        setFormData((prevState)=>(
+            {...prevState,[name] : e.target.value}
+        ));
+    }
+    
+        
     const checkIfWalletIsConnected = async() => {
         try{
             if(!ethereum) avertissement();
@@ -76,7 +92,11 @@ export const TransactionProvider = ({children}) => {
             {
                 getEthereumContract,
                 connectWallet,
-                CurrentAccount
+                CurrentAccount,
+                setFormData,
+                FormData,
+                handleChange,
+                sendTransaction
             }
         }
     >
