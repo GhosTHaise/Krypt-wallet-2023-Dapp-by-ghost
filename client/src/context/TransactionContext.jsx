@@ -18,16 +18,30 @@ const getEthereumContract = () => {
         transaction
     })
 }
+
 const avertissement = () => {
     alert("please install Metamask !")
 }
+
 export const TransactionProvider = ({children}) => {
     const [CurrentAccount, setCurrentAccount] = useState("");
     const checkIfWalletIsConnected = async() => {
-        if(!ethereum) avertissement();
+        try{
+            if(!ethereum) avertissement();
         
-        const accounts = await ethereum?.request({method : "eth_accounts"});
-        console.log(accounts)
+            const accounts = await ethereum?.request({method : "eth_accounts"});
+            if(accounts.length){
+                setCurrentAccount(accounts[0]);
+
+                //get all transactions
+            }else{
+                console.log("No accounts found");
+            }
+            console.log(accounts)
+        }catch(error){
+            console.log(err);
+            throw new Error("No ethereum Object.");
+        }
     }
     const connectWallet =  async() => {
         try{
@@ -37,7 +51,18 @@ export const TransactionProvider = ({children}) => {
             setCurrentAccount(accounts);
         }catch(err){
             console.log(err);
-            throw new Error("No ethereum Object.")
+            throw new Error("No ethereum Object.");
+        }
+    }
+
+    const sendTransaction = async () => {
+        try{
+            if(!ethereum) avertissement();
+
+            //get data from the form
+        }catch(error){
+            console.log(err);
+            throw new Error("No ethereum Object.");
         }
     }
     //
@@ -50,7 +75,8 @@ export const TransactionProvider = ({children}) => {
         value={
             {
                 getEthereumContract,
-                connectWallet
+                connectWallet,
+                CurrentAccount
             }
         }
     >
