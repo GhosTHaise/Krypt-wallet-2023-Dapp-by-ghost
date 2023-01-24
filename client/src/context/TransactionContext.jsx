@@ -29,7 +29,9 @@ export const TransactionProvider = ({children}) => {
             keyword : "",
             message : ""
         });
-    
+    const [isLoading, setIsLoading] = useState(false);
+    const [TransactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
+
     const handleChange = (e,name) => {
         setFormData((prevState)=>(
             {...prevState,[name] : e.target.value}
@@ -84,7 +86,26 @@ export const TransactionProvider = ({children}) => {
                 to : addressTo,
                 gas : "0x5208", //21000 Gwei -> *18 wei
                 value : parsedAmount._hex
-            })
+            });
+
+
+            //store this transaction
+            const transactionHash = await transactionContract.addToBlockchain(
+                addressTo,
+                parsedAmount,
+                message,
+                keyword
+            );
+
+            setIsLoading(true);
+            console.log(`Loading - ${transactionHash}`);
+            await transactionHash.wait();
+            setIsLoading(false);
+            console.log(`success - ${transactionHash}`);
+            const transactionCount = await transactionContract.getTransactionCount();
+
+            setTransactionCount(transactionCount.toNumber());
+
         }catch(err){
             console.log(err);
             throw new Error("No ethereum Object.");
