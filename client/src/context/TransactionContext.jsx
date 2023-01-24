@@ -10,13 +10,9 @@ const getEthereumContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
 
-    const transaction = new ethers.Contract(contractAddress,contractABI,signer);
+    const transactionContract = new ethers.Contract(contractAddress,contractABI,signer);
 
-    console.log({
-        provider,
-        signer,
-        transaction
-    })
+    return transactionContract;
 }
 
 const avertissement = () => {
@@ -74,9 +70,22 @@ export const TransactionProvider = ({children}) => {
     const sendTransaction = async () => {
         try{
             if(!ethereum) avertissement();
-
-            //get data from the form
-        }catch(error){
+            //get all fileds
+            const {addressTo,amount,keyword ,message} = FormData;
+            //convert amount to hexa
+            const parsedAmount = await ethers.utils.parseEther(amount);
+            //get transaction contract
+            const transactionContract = getEthereumContract();
+            console.log("parsed amount : ",parsedAmount);
+            //do transaction from metamask
+            await ethereum.request({
+                method : "eth_send_transaction",
+                from : CurrentAccount,
+                to : addressTo,
+                gas : "0x5208", //21000 Gwei -> *18 wei
+                value : parsedAmount._hex
+            })
+        }catch(err){
             console.log(err);
             throw new Error("No ethereum Object.");
         }
@@ -96,7 +105,7 @@ export const TransactionProvider = ({children}) => {
                 setFormData,
                 FormData,
                 handleChange,
-                sendTransaction
+                sendTransaction 
             }
         }
     >
