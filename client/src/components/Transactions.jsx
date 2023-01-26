@@ -18,7 +18,9 @@ const Transactions = () => {
                       Connect your account to see the latest transactions
                     </h3>
               )}
-              {/* Connect your account to see the latest transaction */}
+              <div className="flex flex-wrap justify-center items-center mt-10">
+                  {/* we need dummy transaction */}
+              </div>
         </div>
     </div>
   )
