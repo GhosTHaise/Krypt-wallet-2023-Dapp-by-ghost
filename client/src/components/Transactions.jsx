@@ -1,7 +1,43 @@
 import { useContext } from "react"
 import {TransactionContext} from "../context/TransactionContext"
 import { shortenAddress } from "../utils/ShortenAddress";
-
+import dummyData from "../utils/dummyData";
+const TransactionCard = ({addressTo,addressFrom,message,keyword,amount,url}) => {
+      let blockchain_network = "goerli"
+      return (
+        <div className="bg-[#181918] m-4 flex flex-1
+          2xl:min-w-[450px]
+          2xl:max-w-[500px]
+          sm:min-w-[270px]
+          sm:max-w-[300px]
+          flex-col p-3 rounded-md hover:shadow-2xl
+        ">
+            <div className="flex flex-col items-center w-full my-3">
+                <div className="w-full mb-6 p-2">
+                  {/* from */}
+                    <a href={`https://${blockchain_network}.etherscan.io/address/${addressFrom}`} 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                            <p className="text-white text-base">
+                                  From : {shortenAddress(addressFrom)}
+                            </p>
+                    </a>
+                    {/* to */}
+                    <a href={`https://${blockchain_network}.etherscan.io/address/${addressTo}`} 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                            <p className="text-white text-base">
+                                  To : {shortenAddress(addressTo)}
+                            </p>
+                    </a>
+                    <p className="text-white text-base">
+                        Amount : {amount} ETH
+                    </p>  
+                </div>
+            </div>
+        </div>
+      )
+}
 const Transactions = () => {
   const {CurrentAccount} = useContext(TransactionContext);
   console.log(CurrentAccount)
@@ -20,6 +56,9 @@ const Transactions = () => {
               )}
               <div className="flex flex-wrap justify-center items-center mt-10">
                   {/* we need dummy transaction */}
+                  {dummyData.reverse().map((transaction,i)=>(
+                     <TransactionCard key={i} {...transaction} />
+                  ))}
               </div>
         </div>
     </div>
