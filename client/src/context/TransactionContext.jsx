@@ -42,7 +42,7 @@ export const TransactionProvider = ({children}) => {
         try {
             if(!ethereum) avertissement();
             const transactionContract = getEthereumContract();
-            const availableTransactions = await transactionContract.getAllTransactions
+            const availableTransactions = await transactionContract.getAllTransaction();
 
             console.log(availableTransactions);
         } catch (err) {
@@ -97,8 +97,10 @@ export const TransactionProvider = ({children}) => {
     }
 
     const sendTransaction = async () => {
+        //console.log(ethereum)
         try{
             if(!ethereum) avertissement();
+            //console.log(FormData)
             //get all fileds
             const {addressTo,amount,keyword ,message} = FormData;
             //convert amount to hexa
@@ -108,11 +110,15 @@ export const TransactionProvider = ({children}) => {
             console.log("parsed amount : ",parsedAmount);
             //do transaction from metamask
             await ethereum.request({
-                method : "eth_send_transaction",
-                from : CurrentAccount,
-                to : addressTo,
-                gas : "0x5208", //21000 Gwei -> *18 wei
-                value : parsedAmount._hex
+                method : "eth_sendTransaction",
+                params : [
+                    {
+                        from : CurrentAccount,
+                        to : addressTo,
+                        gas : "0x5208", //21000 Gwei -> *18 wei
+                        value : parsedAmount._hex
+                    }
+                ]
             });
 
 
