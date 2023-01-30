@@ -26,7 +26,7 @@ contract Transactions {
     }
     function getAllTransaction() external view returns (TranserStruct[] memory) {
         //return transactions
-
+        return transactions;
     }
     function getTransactionCount() external view returns (uint256)  {
         //return transactionCount
