@@ -150,7 +150,7 @@ export const TransactionProvider = ({children}) => {
             const transactionCount = await transactionContract.getTransactionCount();
 
             setTransactionCount(transactionCount.toNumber());
-
+             window.reload();   
         }catch(err){
             console.log(err);
             throw new Error("No ethereum Object.");
@@ -172,7 +172,9 @@ export const TransactionProvider = ({children}) => {
                 setFormData,
                 FormData,
                 handleChange,
-                sendTransaction 
+                sendTransaction,
+                isLoading,
+                transactions
             }
         }
     >

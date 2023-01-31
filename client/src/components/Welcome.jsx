@@ -24,7 +24,7 @@ const Input = ({value,handleChange,name,...params}) => (
 
 
 const Welcome = () => { 
-  const {connectWallet,CurrentAccount,setFormData,FormData,handleChange,sendTransaction} = useContext(TransactionContext);
+  const {connectWallet,CurrentAccount,setFormData,FormData,handleChange,sendTransaction,isLoading} = useContext(TransactionContext);
   /* My function */
   const handleSubmit = (e) => {
     const {addressTo,amount,keyword,message} = FormData;
@@ -110,7 +110,7 @@ const Welcome = () => {
 
                     <div className="h-[1px] w-full bg-gray-400 my-2" />
                     {
-                      !true ? 
+                      isLoading ? 
                       (<Loader />) 
                             : 
                       (
